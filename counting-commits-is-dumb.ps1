@@ -7,28 +7,28 @@
 #     Start-Sleep -Seconds 2
 # }
 
-while ($true) {
-    try {
-        # Stash any local changes to prevent rebase errors
-        git stash --include-untracked
+# while ($true) {
+#     try {
+#         # Stash any local changes to prevent rebase errors
+#         git stash --include-untracked
 
-        # Pull latest commits and rebase
-        git pull --rebase
+#         # Pull latest commits and rebase
+#         git pull --rebase
 
-        # Pop back stashed changes (will reapply the file edit)
-        git stash pop
+#         # Pop back stashed changes (will reapply the file edit)
+#         git stash pop
 
-        # Append a line
-        Add-Content -Path "counting-commits-is-dumb.ts" -Value "// Counting Commits is Dumb"
+#         # Append a line
+#         Add-Content -Path "counting-commits-is-dumb.ts" -Value "// Counting Commits is Dumb"
 
-        # Add, commit, push
-        git add counting-commits-is-dumb.ts
-        git commit -m "counting commits is dumb"
+#         # Add, commit, push
+#         git add counting-commits-is-dumb.ts
+#         git commit -m "counting commits is dumb"
 
-        # Push (no force – lets Git handle it properly)
-        git push
+#         # Push (no force – lets Git handle it properly)
+#         git push
 
-    } catch {
-        Write-Host "⚠️ Error: $_"
-    }
-}
+#     } catch {
+#         Write-Host "⚠️ Error: $_"
+#     }
+# }
