@@ -7,28 +7,38 @@
 #     Start-Sleep -Seconds 2
 # }
 
-# while ($true) {
-#     try {
-#         # Stash any local changes to prevent rebase errors
-#         git stash --include-untracked
+while ($true) {
+    try {
+        Write-Host "`n🔄 Starting loop at $(Get-Date -Format "HH:mm:ss")"
 
-#         # Pull latest commits and rebase
-#         git pull --rebase
+        # Stash any changes (don't fail if nothing to stash)
+        git stash --include-untracked | Out-Null
 
-#         # Pop back stashed changes (will reapply the file edit)
-#         git stash pop
+        # Pull with rebase
+        git pull --rebase
+        Write-Host "✅ Pulled with rebase"
 
-#         # Append a line
-#         Add-Content -Path "counting-commits-is-dumb.ts" -Value "// Counting Commits is Dumb"
+        # Pop stash (may fail if there was nothing to stash)
+        git stash pop | Out-Null
 
-#         # Add, commit, push
-#         git add counting-commits-is-dumb.ts
-#         git commit -m "counting commits is dumb"
+        # Append a line
+        Add-Content -Path "counting-commits-is-dumb.ts" -Value "// Counting Commits is Dumb"
+        Write-Host "✍️  Appended line to file"
 
-#         # Push (no force – lets Git handle it properly)
-#         git push
+        # Commit
+        git add counting-commits-is-dumb.ts
+        git commit -m "counting commits is dumb" | Out-Null
+        Write-Host "✅ Committed"
 
-#     } catch {
-#         Write-Host "⚠️ Error: $_"
-#     }
-# }
+        # Push
+        git push
+        Write-Host "🚀 Pushed to GitHub"
+
+        # Optional delay
+        Start-Sleep -Milliseconds 500
+
+    } catch {
+        Write-Host "⚠️ Error: $_"
+        Start-Sleep -Seconds 1
+    }
+}
