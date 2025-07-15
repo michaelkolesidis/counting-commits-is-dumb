@@ -1,4 +1,4 @@
-![Counting Commits is Dumb](./counting-commits-is-dumb.png)
+![Counting Commits is Dumb](./logo.png)
 
 A lot of sites rank developers just by the number of commits, but that’s pretty dumb.
 
